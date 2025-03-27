@@ -1,0 +1,17 @@
+.cardMain {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+  padding: 0 50px !important;
+  height: 100% !important;
+  text-align: center !important;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}

@@ -46,7 +46,7 @@ export default function HeaderSideMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9hDqW6flcNwH0PixV1VTbBl6mY_KEb__sQA&s" width={32} height={32} /></Avatar>
           </IconButton>
         </Tooltip>
       </Box>

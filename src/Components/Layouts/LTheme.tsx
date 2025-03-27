@@ -126,106 +126,20 @@ export default function LTheme({ children }: LThemeProps) {
     {
       title: "Dashboard",
       icon: <DashboardIcon />,
-      to: "dashboard",
-      submenu: [
-        {
-          title: "HO Dashboard",
-          href: "/dashboard",
-          icon: <PanoramaFishEyeIcon />
-        },
-      ]
+      to: "/dashboard",
     },
     {
       title: "Master Data",
-      icon: <DatasetIcon />,
-      to: "company",
-      submenu: [
-        {
-          title: "Company Profile",
-          href: "/company",
-          icon: <PanoramaFishEyeIcon />
-        },
-        {
-          title: "Staff Info",
-          href: "/staff",
-          icon: <PanoramaFishEyeIcon />
-        }
-      ],
-    },
-    {
-      title: "Staff",
       icon: <ThreePIcon />,
       to: "#",
       submenu: [
         {
-          title: "Staff Profile",
+          title: "Users",
           icon: <PanoramaFishEyeIcon />,
-          href: ""
+          href: "/users"
         }
       ]
     },
-    {
-      title: "Reports",
-      icon: <FolderIcon />,
-      to: "#",
-      submenu: [
-        {
-          title: "Cash Book",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "Voucher Payment",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "Due Renewal",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "Loan Request",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "Loan Approval",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "Loan Disbursement",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "EMI Due",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "Loan Over Due",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "Loan Outstanding",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "EMI Collection",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        },
-        {
-          title: "Payment",
-          icon: <PanoramaFishEyeIcon />,
-          href: "",
-        }
-      ]
-    }
   ];
   return (
     <Box sx={{ display: 'flex' }}>
@@ -300,8 +214,8 @@ export default function LTheme({ children }: LThemeProps) {
               return (
                 <div key={index}>
                   <ListItem sx={{ backgroundColor: isActiveMenu ? TMMenuBG : "", }} key={mitem} disablePadding onClick={(e) => mitem?.submenu?.length > 0 && handleSubMenuClick(mitem.title)} >
-                    <ListItemButton component={Link} to={"#"} >
-                      <ListItemIcon sx={{ minWidth: '30px', color: location.pathname == mitem.to ? "#343a40" : "#ffffffe6" }} >
+                    <ListItemButton component={Link} to={mitem.to} >
+                      <ListItemIcon sx={{ minWidth: '30px', color: location.pathname == mitem.to ? "#FFF" : "#ffffffe6" }} >
                         {mitem?.icon}
                       </ListItemIcon>
 
