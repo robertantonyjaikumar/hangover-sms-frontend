@@ -1,4 +1,4 @@
-// import store from "../Store/store";
+import store from "../Store/store";
 
 export const SiteName = "School Management App";
 export const SiteSymb = " | ";
@@ -8,10 +8,10 @@ export const TMMenuBG = "#007bff";
 export const TSMenuBG = "#ffffffe6";
 export const TERROR = "red";
 
-export const apiUrl = '';
+export const apiUrl = 'http://localhost:8081/v1/';
 export const siteUrl = '';
 
-// export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch;
 
 export const Relations = [
   { value: 1, label: "Father" },
