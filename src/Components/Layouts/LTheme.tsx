@@ -36,29 +36,51 @@ import { Tprimary1, TMMenuBG, TSMenuBG } from '../../Utils/constants';
 
 const drawerWidth = 240;
 
+// const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
+//   open?: boolean;
+// }>(({ theme }) => ({
+//   flexGrow: 1,
+//   padding: theme.spacing(3),
+//   transition: theme.transitions.create('margin', {
+//     easing: theme.transitions.easing.sharp,
+//     duration: theme.transitions.duration.leavingScreen,
+//   }),
+//   marginLeft: `-${drawerWidth}px`,
+//   variants: [
+//     {
+//       props: ({ open }) => open,
+//       style: {
+//         transition: theme.transitions.create('margin', {
+//           easing: theme.transitions.easing.easeOut,
+//           duration: theme.transitions.duration.enteringScreen,
+//         }),
+//         marginLeft: 0,
+//       },
+//     },
+//   ],
+// }));
+
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
-}>(({ theme }) => ({
+}>(({ theme, open }) => ({
   flexGrow: 1,
-  padding: theme.spacing(3),
-  transition: theme.transitions.create('margin', {
+  height: "100vh", // Ensures it takes full viewport height
+  marginLeft: open ? 0 : `-${drawerWidth}px`,
+  transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `-${drawerWidth}px`,
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.easeOut,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-      },
-    },
-  ],
+  display: "flex",
+  flexDirection: "column",
 }));
+
+const ContentWrapper = styled(Box)({
+  flexGrow: 1,
+  overflowY: "auto", // Enables vertical scrolling if content overflows
+  padding: "16px",
+  height: "calc(100vh - 50px)", // Adjust height to fit between header and footer
+});
+
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -278,23 +300,25 @@ export default function LTheme({ children }: LThemeProps) {
       <Main open={open}>
         <DrawerHeader />
         {/* <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}> */}
-        {children}
+        <ContentWrapper>
+          {children}
+        </ContentWrapper>
         {/* </Paper> */}
       </Main>
-      <footer style={{
-        bottom: '0',
-        width: "100%",
-        textAlign: 'center',
-        backgroundColor: "#045b62",
-        color: 'white',
+      {/* <footer style={{
         position: "fixed",
+        bottom: 0,
+        width: "100%",
+        textAlign: "center",
+        backgroundColor: "#045b62",
+        color: "white",
         height: "30px",
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}>
-        <p>&copy; {new Date().getFullYear()}- MyCompany Solutions</p>
-      </footer>
+        <p>&copy; {new Date().getFullYear()} - MyCompany Solutions</p>
+      </footer> */}
     </Box>
   );
 }
