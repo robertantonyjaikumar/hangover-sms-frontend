@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, GetAllUsers, CreateNewUser, SiteAccountSettings, GetUserById, UpdateUser } from "../actions/userAction";
+import { login, GetAllUsers, CreateNewUser, SiteAccountSettings, GetUserById, UpdateUser, DeleteUserById } from "../actions/userAction";
 
 const initialState: any = {
   isLoading: false,
@@ -11,7 +11,9 @@ const initialState: any = {
   accountSettingsResult: null,
   userData: null,
   userDetails: null,
-  userSingleDetails: null,
+  getSingleDetails: null,
+  deleteSuccess: null,
+  deleteError: null,
 };
 
 const userSlice = createSlice({
@@ -24,6 +26,14 @@ const userSlice = createSlice({
     resetSavedUser: (state: any) => {
       state.success = null;
       state.isLoading = false;
+      state.isLoginLoading = false;
+      state.error = null;
+      state.updateSuccess = null;
+      state.updateError = null;
+      state.accountSettingsResult = null;
+      state.userData = null;
+      state.userDetails = null;
+      state.getSingleDetails = null;
     },
   },
   extraReducers: (builder) => {
@@ -75,12 +85,12 @@ const userSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(GetUserById.fulfilled, (state: any, action) => {
-      state.userSingleDetails = action.payload;
+      state.getSingleDetails = action.payload;
       state.isLoading = false;
     });
     builder.addCase(GetUserById.rejected, (state: any, action) => {
       state.isLoading = false;
-      state.userSingleDetails = null;
+      state.getSingleDetails = null;
       state.error = action.payload;
     });
     builder.addCase(UpdateUser.pending, (state: any) => {
@@ -93,6 +103,18 @@ const userSlice = createSlice({
     builder.addCase(UpdateUser.rejected, (state: any, action) => {
       state.isLoading = false;
       state.updateError = action.payload;
+    });
+
+    builder.addCase(DeleteUserById.pending, (state: any) => {
+      state.isLoading = true;
+    });
+    builder.addCase(DeleteUserById.fulfilled, (state: any, action) => {
+      state.deleteSuccess = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(DeleteUserById.rejected, (state: any, action) => {
+      state.isLoading = false;
+      state.deleteError = action.payload;
     });
   },
 });

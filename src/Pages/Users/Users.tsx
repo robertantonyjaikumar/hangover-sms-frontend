@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment'
 import { AppDispatch } from '../../Utils/constants';
-import { GetAllUsers } from '../../Store/actions/userAction';
+import { GetAllUsers, DeleteUserById } from '../../Store/actions/userAction';
 import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import CETables from '../../Components/Layouts/CETables';
@@ -13,7 +13,7 @@ import { resetSavedUser } from '../../Store/reducers/userSlice'
 const Branch = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const { userDetails, isLoading, success } = useSelector((state: any) => state.user);
+  const { userDetails, isLoading, success, updateSuccess, deleteSuccess, deleteError } = useSelector((state: any) => state.user);
   const [data, setData] = useState<any>([]);
   const canDelete = true; // Assuming this comes from user permissions
 
@@ -25,7 +25,21 @@ const Branch = () => {
       toast.success("User has been saved !");
       dispatch(resetSavedUser());
     }
-  }, [dispatch, success]);
+
+    if (updateSuccess?.status == "success") {
+      toast.success("User has been updated !");
+      dispatch(resetSavedUser());
+    }
+    if (deleteSuccess?.status == "success") {
+      toast.success("User has been deleted !");
+      dispatch(resetSavedUser());
+    }
+
+    if (deleteError?.status == "success") {
+      toast.error("Unable to delete the user !");
+      dispatch(resetSavedUser());
+    }
+  }, [dispatch, success, updateSuccess, deleteSuccess, deleteError]);
 
   useEffect(() => {
     if (userDetails?.data?.length > 0) {
@@ -53,8 +67,15 @@ const Branch = () => {
   };
 
   const handleDelete = (id: any) => {
-    // Custom delete logic here
-    toast.success(`Deleted row with ID: ${id}`);
+    try {
+      const confirmDelete = window.confirm("Are you sure you want to delete this user?");
+      if (confirmDelete) {
+        dispatch(DeleteUserById(id));
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
   };
 
   return (

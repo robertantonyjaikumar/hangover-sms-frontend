@@ -112,8 +112,30 @@ export const UpdateUser = createAsyncThunk(
   async (params: any, thunkAPI) => {
     try {
       const response = await axiosInstance(`${apiUrl}user/${params?.id}`, {
-        'method': 'POST',
+        'method': 'PUT',
         'data': params?.data,
+      }).then((res: any) => {
+        return res?.data;
+      }).catch((err: any) => {
+        return err;
+      })
+      return response
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      } else {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const DeleteUserById = createAsyncThunk(
+  "DeleteUserById",
+  async (params: any, thunkAPI) => {
+    try {
+      const response = await axiosInstance(`${apiUrl}user/${params}`, {
+        'method': 'DELETE',
       }).then((res: any) => {
         return res?.data;
       }).catch((err: any) => {

@@ -18,6 +18,9 @@ const EditUser = () => {
   const dispatch: AppDispatch = useDispatch();
   let navigate = useNavigate();
   const params: any = useParams();
+  const { isLoading, getSingleDetails, updateSuccess } = useSelector((state: any) => state.user)
+  const asp = useSelector((state: any) => state.user)
+  console.log(asp)
   const { register, handleSubmit, setValue, reset, formState: { errors } } = useForm({
     defaultValues: {
       display_name: "",
@@ -28,11 +31,9 @@ const EditUser = () => {
       first_name: "",
       last_name: "",
       middle_name: "",
-      password: "",
       country_code: "",
     },
   });
-  const { isLoading, userSingleDetails } = useSelector((state: any) => state.user)
   const [dob, setDob] = useState<any>(null);
   const [countryVal, setCountryVal] = useState<any>("");
   const countryDropdown = [
@@ -46,32 +47,30 @@ const EditUser = () => {
   }, [])
 
   useEffect(() => {
-    if (userSingleDetails) {
+    if (getSingleDetails) {
       reset({
-        display_name: userSingleDetails?.data?.display_name || "",
-        username: userSingleDetails?.data?.username || "",
-        first_name: userSingleDetails?.data?.first_name || "",
-        last_name: userSingleDetails?.data?.last_name || "",
-        middle_name: userSingleDetails?.data?.middle_name || "",
-        email: userSingleDetails?.data?.email || "",
-        contact_number: userSingleDetails?.data?.contact_number || "",
-        dob: userSingleDetails?.data?.dob || "",
-        password: userSingleDetails?.data?.password || "",
-        country_code: userSingleDetails?.data?.country_code || "",
+        display_name: getSingleDetails?.data?.display_name || "",
+        username: getSingleDetails?.data?.username || "",
+        first_name: getSingleDetails?.data?.first_name || "",
+        last_name: getSingleDetails?.data?.last_name || "",
+        middle_name: getSingleDetails?.data?.middle_name || "",
+        email: getSingleDetails?.data?.email || "",
+        contact_number: getSingleDetails?.data?.contact_number || "",
+        dob: getSingleDetails?.data?.dob || "",
+        country_code: getSingleDetails?.data?.country_code || "",
       });
-      setCountryVal(userSingleDetails?.data?.country_code)
-      setDob(moment(userSingleDetails?.data?.dob))
+      setCountryVal(getSingleDetails?.data?.country_code)
+      setDob(moment(getSingleDetails?.data?.dob))
     }
-  }, [userSingleDetails, reset]);
+  }, [getSingleDetails, reset]);
 
-  // console.log(success)
-  // useEffect(() => {
-  //   if (success?.status == "success") {
-  //     navigate("/users");
-  //   } else if (success?.status == "fail") {
-  //     toast.error("unable to save the record !");
-  //   }
-  // }, [success])
+  useEffect(() => {
+    if (updateSuccess?.status == "success") {
+      navigate("/users");
+    } else if (updateSuccess?.status == "fail") {
+      toast.error("unable to save the record !");
+    }
+  }, [updateSuccess])
 
 
   const onSubmit = (data: any) => {
@@ -185,17 +184,6 @@ const EditUser = () => {
                   fullWidth
                   error={errors.email ? true : false}
                   {...register("email", { required: "Email is required" })}
-                />
-              </Grid>
-              <Grid size={{ xs: 12, sm: 3, md: 3 }}>
-                <TextField
-                  id="password"
-                  label="Password *"
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  error={errors.password ? true : false}
-                  {...register("password", { required: "Password is required" })}
                 />
               </Grid>
               <Grid size={{ xs: 12, sm: 2, md: 2 }}>

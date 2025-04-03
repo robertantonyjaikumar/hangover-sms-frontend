@@ -67,7 +67,7 @@ const CETables = <T extends Record<string, any>>({
             </IconButton>
           )}
           {showDeleteIcon && (
-            <IconButton onClick={() => onDelete(row.original[colName])}>
+            <IconButton onClick={() => onDelete(row?.original?.id)}>
               <DeleteIcon />
             </IconButton>
           )}
