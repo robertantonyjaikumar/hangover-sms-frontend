@@ -3,8 +3,6 @@ import axios from "axios";
 import { apiUrl } from "../../Utils/constants";
 import { axiosInstance } from "../../Utils/axiosInstance";
 import { encryptData } from "../../Utils/helpers";
-// import axiosInstance from "@/configs/AxiosInstance";
-
 
 
 export const login = createAsyncThunk(
@@ -33,6 +31,118 @@ export const login = createAsyncThunk(
       return response
     } catch (error: any) {
       console.log(error);
+      if (error.response && error.response.data) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      } else {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const GetAllUsers = createAsyncThunk(
+  "GetAllUsers",
+  async (params: any, thunkAPI) => {
+    try {
+      const response = await axiosInstance(`${apiUrl}user/all`, {
+        'method': 'GET',
+      }).then((res: any) => {
+        return res?.data;
+      }).catch((err: any) => {
+        return err;
+      })
+      return response
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      } else {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const CreateNewUser = createAsyncThunk(
+  "CreateNewUser",
+  async (params: any, thunkAPI) => {
+    try {
+      const response = await axiosInstance(`${apiUrl}user`, {
+        'method': 'POST',
+        'data': params,
+      }).then((res: any) => {
+        return res?.data;
+      }).catch((err: any) => {
+        return err;
+      })
+      return response
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      } else {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const GetUserById = createAsyncThunk(
+  "GetUserById",
+  async (params: any, thunkAPI) => {
+    try {
+      const response = await axiosInstance(`${apiUrl}user/${params}`, {
+        'method': 'GET',
+      }).then((res: any) => {
+        return res?.data;
+      }).catch((err: any) => {
+        return err;
+      })
+      return response
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      } else {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const UpdateUser = createAsyncThunk(
+  "UpdateUser",
+  async (params: any, thunkAPI) => {
+    try {
+      const response = await axiosInstance(`${apiUrl}user/${params?.id}`, {
+        'method': 'PUT',
+        'data': params?.data,
+      }).then((res: any) => {
+        return res?.data;
+      }).catch((err: any) => {
+        return err;
+      })
+      return response
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      } else {
+        return thunkAPI.rejectWithValue(error.message);
+      }
+    }
+  }
+);
+
+export const DeleteUserById = createAsyncThunk(
+  "DeleteUserById",
+  async (params: any, thunkAPI) => {
+    try {
+      const response = await axiosInstance(`${apiUrl}user/${params}`, {
+        'method': 'DELETE',
+      }).then((res: any) => {
+        return res?.data;
+      }).catch((err: any) => {
+        return err;
+      })
+      return response
+    } catch (error: any) {
       if (error.response && error.response.data) {
         return thunkAPI.rejectWithValue(error.response.data);
       } else {

@@ -18,6 +18,24 @@ export const decryptData = () => {
   }
 };
 
+//To encypt single data
+export function encryptSingleData(encData: any) {
+  if (encData) {
+    var retData = btoa((encData + 122354125410));
+    return retData;
+  }
+}
+
+//To Decrypt single data
+export function decryptSingleData(encData: any) {
+  if (encData) {
+    var smp: any = atob(encData);
+    if ((smp)) {
+      var retData = smp - 122354125410;
+      return retData
+    }
+  }
+}
 
 export function isLoggedIn() {
   const token = localStorage.getItem('udata');

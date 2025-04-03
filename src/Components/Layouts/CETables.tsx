@@ -62,12 +62,12 @@ const CETables = <T extends Record<string, any>>({
       Cell: ({ row }: { row: MRT_Row<T> }) => (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           {showEditIcon && (
-            <IconButton onClick={() => onEdit(row.original[colName])}>
+            <IconButton onClick={() => onEdit(row?.original?.id)}>
               <EditIcon />
             </IconButton>
           )}
           {showDeleteIcon && (
-            <IconButton onClick={() => onDelete(row.original[colName])}>
+            <IconButton onClick={() => onDelete(row?.original?.id)}>
               <DeleteIcon />
             </IconButton>
           )}
@@ -146,7 +146,7 @@ const CETables = <T extends Record<string, any>>({
     },
     renderTopToolbarCustomActions: ({ table }) => (
       <Box sx={{ display: 'flex', gap: '16px', padding: '8px', flexWrap: 'wrap' }}>
-        <IconButton onClick={() => handleExportData} sx={{ background: '#17a2b8' }}>
+        <IconButton onClick={() => handleExportData()} sx={{ background: '#17a2b8' }}>
           <img width={24} height={24} src={excelExportImage} alt="Export Excel" />
         </IconButton>
         {/* <div
@@ -172,7 +172,7 @@ const CETables = <T extends Record<string, any>>({
           <img width={24} height={24} src={excelSelectedExportImg} alt="Export Excel" />
         </IconButton>
 
-        <IconButton onClick={() => handlePDFExportData} sx={{ background: '#17a2b8' }}>
+        <IconButton onClick={() => handlePDFExportData()} sx={{ background: '#17a2b8' }}>
           <img width={24} height={24} src={pdfExportImage} alt="Export PDF" />
         </IconButton>
 

@@ -1,6 +1,6 @@
 import axios from 'axios'
 // import swal from 'sweetalert';
-import store from '../Store/store';
+// import store from '../Store/store';
 import { decryptData } from './helpers';
 export const axiosInstance = axios.create()
 
@@ -8,7 +8,7 @@ axiosInstance.interceptors.request.use(function (config) {
   // const token = (store?.getState()?.user?.userData?.Token?.length > 0) ? store?.getState()?.user?.userData?.Token : decryptUserTknLocalStorage();
   const token = decryptData();
   // config.headers.Authorization = token ? `${token}` : '';
-  config.headers.accessToken = token ? `${token}` : '';
+  config.headers.Authorization = token ? `Bearer ${token?.access_token}` : '';
   return config;
 });
 
